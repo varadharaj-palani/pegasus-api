@@ -3,6 +3,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
+  var sql = ""
   res.send('respond with a resource');
 });
 
