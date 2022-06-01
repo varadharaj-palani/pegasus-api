@@ -3,31 +3,16 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var tableRouter = require('./routes/createTables');
 var authRouter = require('./routes/auth');
+var addAccountRouter = require('./routes/addAccount');
 
 var app = express();
+app.use(cors());
 
-const mysql = require('mysql2');
-global.db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Wolf@707',
-  database: 'ibdb'
-});
-
-
-db.connect((err) => {
-  if (err) {
-    console.error('error connecting: ' + err.stack);
-  }
-  else {
-    console.log('db connect aaiduche mame!');
-  }
-})
 
 
 
@@ -45,6 +30,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/create-alla-tables', tableRouter);
 app.use('/auth',authRouter);
+app.use('/addAccount',addAccountRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

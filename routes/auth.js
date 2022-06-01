@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
-const bcrypt = require('bcrypt.js');
+const bcrypt = require('bcrypt');
+const db= require('../data/database');
 
 /* GET users listing. */
-router.post('/', function (req, res, next) {
+router.post('/', async function (req, res, next) {
     const email = req.body.email;
     const password = req.body.password;
     var sql = "SELECT PASSWORD FROM LOGIN WHERE USERNAME=? AND UTYPE='CUSTOMER'";
