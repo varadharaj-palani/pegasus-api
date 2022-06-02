@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var randomstring = require('randomstring');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const db = require('../data/database');
 
 
@@ -67,6 +67,9 @@ router.post('/', async function (req, res, next) {
                 result3 = await db.query(sql, [[Acc, data.principle, amt, 9, 'Active', data.depdate, data.term, data.maturdate]]);
 
             }
+            sql = "INSERT INTO LOGIN VALUES (?)"
+            const hashpwd = await bcrypt.hash(data.password,7);
+            await db.query(sql,[[data.email,hashpwd,'Customer',id]]);
 
             return res.status(200).send({ message: "Account Created Successfully", flag: "success" });
 

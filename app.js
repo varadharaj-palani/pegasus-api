@@ -9,6 +9,8 @@ var usersRouter = require('./routes/users');
 var tableRouter = require('./routes/createTables');
 var authRouter = require('./routes/auth');
 var addAccountRouter = require('./routes/addAccount');
+var accountRouter = require('./routes/account');
+var accountListRouter = require('./routes/accountList');
 
 var app = express();
 app.use(cors());
@@ -31,6 +33,8 @@ app.use('/users', usersRouter);
 app.use('/create-alla-tables', tableRouter);
 app.use('/auth',authRouter);
 app.use('/addAccount',addAccountRouter);
+app.use('/account',accountRouter);
+app.use('/accountList',accountListRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
