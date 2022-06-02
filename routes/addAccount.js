@@ -37,23 +37,30 @@ router.post('/', async function (req, res, next) {
 
 
     const data = req.body;
-    var sql = "INSERT INTO CUSTOMER VALUES (?)";
+    var sql = "SELECT * FROM CUSTOMER WHERE EMAIL=?";
+    const user = await db.query(sql, data.email);
+    sql = "INSERT INTO CUSTOMER VALUES (?)";
     try {
+        var id = randId();
         console.log(data);
-        const id = randId();
-        console.log(id);
-        await db.query(sql, [[id, data.fname, data.lname, data.dob, data.gender, data.phone, data.email, data.aadhar, data.pan]]);
-        sql = 'INSERT INTO CADDRESS VALUES (?)'
-        await db.query(sql, [[id, data.line1, data.line2, data.city, data.pincode]]);
+        if (user[0].length == 0) {
+            console.log(id);
+            await db.query(sql, [[id, data.fname, data.lname, data.dob, data.gender, data.phone, data.email, data.aadhar, data.pan]]);
+            sql = 'INSERT INTO CADDRESS VALUES (?)'
+            await db.query(sql, [[id, data.line1, data.line2, data.city, data.pincode]]);
+        }
+        else{
+            id = user[0][0].ID;
+        }
         sql = "SELECT IFSC FROM BRANCH WHERE CITY=?"
         const branchifsc = await db.query(sql, data.city);
         console.log(branchifsc);
-        if (branchifsc[0] != 0) {
+        if (branchifsc[0].length != 0) {
             const acc = randAcc();
-            const Acc=acc.toString();
+            const Acc = acc.toString();
             console.log(acc);
             sql = "INSERT INTO ACCOUNT VALUES (?)";
-            console.log(id,Acc,branchifsc[0][0].IFSC,data.accType);
+            console.log(id, Acc, branchifsc[0][0].IFSC, data.accType);
             await db.query(sql, [[id, acc, branchifsc[0][0].IFSC, data.accType]]);
             var result3;
             if (data.accType == 'Savings') {
@@ -67,9 +74,11 @@ router.post('/', async function (req, res, next) {
                 result3 = await db.query(sql, [[Acc, data.principle, amt, 9, 'Active', data.depdate, data.term, data.maturdate]]);
 
             }
-            sql = "INSERT INTO LOGIN VALUES (?)"
-            const hashpwd = await bcrypt.hash(data.password,7);
-            await db.query(sql,[[data.email,hashpwd,'Customer',id]]);
+            if (user[0].length == 0) {
+                sql = "INSERT INTO LOGIN VALUES (?)"
+                const hashpwd = await bcrypt.hash(data.password, 7);
+                await db.query(sql, [[data.email, hashpwd, 'Customer', id]]);
+            }
 
             return res.status(200).send({ message: "Account Created Successfully", flag: "success" });
 
