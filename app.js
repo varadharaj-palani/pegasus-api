@@ -11,6 +11,10 @@ var authRouter = require('./routes/auth');
 var addAccountRouter = require('./routes/addAccount');
 var accountRouter = require('./routes/account');
 var accountListRouter = require('./routes/accountList');
+var savAccountRouter = require('./routes/savAccount');
+var instaPayRouter = require('./routes/instaPay');
+var beneficiaryRouter = require('./routes/beneficiary');
+var addBeneficiaryRouter = require('./routes/addBeneficiary');
 
 var app = express();
 app.use(cors());
@@ -31,13 +35,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/create-alla-tables', tableRouter);
-app.use('/auth',authRouter);
-app.use('/addAccount',addAccountRouter);
-app.use('/account',accountRouter);
-app.use('/accountList',accountListRouter);
+app.use('/auth', authRouter);
+app.use('/addAccount', addAccountRouter);
+app.use('/account', accountRouter);
+app.use('/savAccount', savAccountRouter);
+app.use('/accountList', accountListRouter);
+app.use('/instapay',instaPayRouter);
+app.use('/beneficiary',beneficiaryRouter);
+app.use('/addBeneficiary',addBeneficiaryRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
+  console.log("Hiiiiii")
   next(createError(404));
 });
 

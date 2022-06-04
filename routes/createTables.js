@@ -1,7 +1,7 @@
 var express = require('express');
 const { response } = require('../app');
 var router = express.Router();
-const db= require('../data/database');
+const db = require('../data/database');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
         if (response) {
             console.log(response);
         }
-    }) 
+    })
     sql = "CREATE TABLE CUSTOMER (ID INTEGER PRIMARY KEY, FNAME VARCHAR(10), LNAME VARCHAR(10), DOB DATE, GENDER CHAR(1), PHONE CHAR(10), EMAIL VARCHAR(30), AADHAR CHAR(12), PAN CHAR(10));"
     db.query(sql).then(response => {
         if (response) {
@@ -48,21 +48,21 @@ router.get('/', function (req, res, next) {
         }
     })
 
-    sql = "CREATE TABLE SAVINGSACC (ACCNO VARCHAR(10) PRIMARY KEY, BALANCE INTEGER, STATUS VARCHAR(10), INTEREST INTEGER(3));"
+    sql = "CREATE TABLE SAVINGSACC (ACCNO VARCHAR(10) PRIMARY KEY, BALANCE REAL, STATUS VARCHAR(10), INTEREST INTEGER(3));"
     db.query(sql).then(response => {
         if (response) {
             console.log(response);
         }
     })
 
-    sql = "CREATE TABLE FDACC (ACCNO VARCHAR(10) PRIMARY KEY, PRINCIPLE INTEGER, AMOUNT INTEGER, INTEREST INTEGER(3), STATUS VARCHAR(10), DEPDATE DATE, TERM VARCHAR(15), MATURDATE DATE);"
+    sql = "CREATE TABLE FDACC (ACCNO VARCHAR(10) PRIMARY KEY, PRINCIPLE REAL, AMOUNT REAL, INTEREST INTEGER(3), STATUS VARCHAR(10), DEPDATE DATE, TERM VARCHAR(15), MATURDATE DATE);"
     db.query(sql).then(response => {
         if (response) {
             console.log(response);
         }
     })
 
-    sql = "CREATE TABLE TRANSACTION (TRANSID INTEGER(10) PRIMARY KEY, ACCNO VARCHAR(10), TTYPE VARCHAR(50), TRANSDATE DATE, CRDIT REAL, DEBIT REAL, BALANCE REAL);"
+    sql = "CREATE TABLE TRANSACTION (TRANSID VARCHAR(10) PRIMARY KEY, ACCNO VARCHAR(10), AACNO VARCHAR(10), TTYPE VARCHAR(15), TRANSDATE DATE, AMOUNT REAL, BALANCE REAL, PURPOSE VARCHAR(50));"
     db.query(sql).then(response => {
         if (response) {
             console.log(response);
@@ -74,7 +74,7 @@ router.get('/', function (req, res, next) {
             console.log(response);
         }
     })
-    sql = "CREATE TABLE BILLDET( ID INTEGER, BILLDATE DATE, BILLAMOUNT REAL, BILLERNAME VARCHAR(20));" 
+    sql = "CREATE TABLE BILLDET( ID INTEGER, BILLDATE DATE, BILLAMOUNT REAL, BILLERNAME VARCHAR(20));"
     db.query(sql).then(response => {
         if (response) {
             console.log(response);
@@ -87,6 +87,13 @@ router.get('/', function (req, res, next) {
         }
     })
     sql = "CREATE TABLE REQUEST (SDATE DATE, SERVICE_TYPE VARCHAR(20), ID INTEGER(10));"
+    db.query(sql).then(response => {
+        if (response) {
+            console.log(response);
+        }
+    })
+
+    sql = "CREATE TABLE BENEFICIARY (ACCNO VARCHAR(10), BENEFICIARY_NAME VARCHAR(40), BENEFICIARY_ACCNO(10));"
     db.query(sql).then(response => {
         if (response) {
             console.log(response);
