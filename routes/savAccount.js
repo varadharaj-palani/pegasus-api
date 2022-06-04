@@ -6,9 +6,8 @@ var db = require("../data/database");
 router.get('/', async function (req, res, next) {
     const email = req.headers.authorization;
     var sql = "SELECT ID FROM LOGIN WHERE USERNAME=? AND UTYPE='Customer'";
-
     const usr = await db.query(sql, email);
-    console.log (usr)
+    var acct = ['Select'];
     if (usr[0].length == 0) {
         return res.status(401).send({
             message: 'User doesn\'t exist',
@@ -16,9 +15,13 @@ router.get('/', async function (req, res, next) {
         })
     }
     else {
-        sql = "SELECT * FROM ACCOUNT WHERE ID=?"
+        sql = "SELECT ACCNO FROM ACCOUNT WHERE ID=? AND ACCTYPE='Savings'"
         const acc = await db.query(sql, usr[0][0].ID);
-        res.status(200).send({'accounts': acc[0]});
+        for (const type of acc[0]) {
+            acct.push(type.ACCNO);
+        }
+        console.log(acct)
+        res.status(200).send( acct );
 
     }
 });
