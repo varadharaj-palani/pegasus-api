@@ -17,7 +17,7 @@ router.get('/', function (req, res, next) {
             console.log(response);
         }
     })
-    sql = "CREATE TABLE LOGIN (USERNAME VARCHAR(30) PRIMARY KEY, PASSWORD VARCHAR(100), UTYPE VARCHAR(15), ID INTEGER);"
+    sql = "CREATE TABLE LOGIN (USERNAME VARCHAR(30) PRIMARY KEY, PASSWORD VARCHAR(200), UTYPE VARCHAR(15), ID INTEGER);"
     db.query(sql).then(response => {
         if (response) {
             console.log(response);
