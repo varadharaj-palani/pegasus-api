@@ -22,7 +22,8 @@ router.post('/', async function (req, res, next) {
         return res.status(200).send({
             message: 'Logged In Successfully',
             flag: 'success',
-            username: email
+            username: email,
+            logbit: 1
         })
     }
     else {
