@@ -20,6 +20,9 @@ var addBeneficiaryRouter = require('./routes/addBeneficiary');
 var addLoanRouter = require('./routes/addLoan');
 var billsRouter = require('./routes/bills');
 var payBillRouter = require('./routes/payBill');
+var getBillerRouter = require('./routes/getBillers');
+var addBillerRouter = require('./routes/addBillers');
+var payNewBillRouter = require('./routes/payNewBill');
 
 var app = express();
 app.use(cors());
@@ -57,6 +60,10 @@ app.use('/beneficiary', beneficiaryRouter);
 app.use('/addBeneficiary', addBeneficiaryRouter)
 app.use('/bills', billsRouter);
 app.use('/payBill', payBillRouter);
+app.use('/billers',getBillerRouter);
+app.use('/addBiller',addBillerRouter);
+app.use('/payNewBill',payNewBillRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
