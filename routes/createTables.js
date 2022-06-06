@@ -29,7 +29,7 @@ router.get('/', function (req, res, next) {
             console.log(response);
         }
     })
-    sql = "CREATE TABLE EMPLOYEE (EMPID INTEGER PRIMARY KEY, EMPNAME VARCHAR(20), GENDER CHAR(1), SALARY INTEGER,DESIGNATION VARCHAR(20), WIFSC CHAR(10));"
+    sql = "CREATE TABLE EMPLOYEE (EMPID INTEGER PRIMARY KEY, EMPNAME VARCHAR(30), GENDER CHAR(1), SALARY REAL,DESIGNATION VARCHAR(30), WIFSC CHAR(10), EMAIL VARCHAR(30), PHONE CHAR(10), DOB DATE);"
     db.query(sql).then(response => {
         if (response) {
             console.log(response);
@@ -48,14 +48,14 @@ router.get('/', function (req, res, next) {
         }
     })
 
-    sql = "CREATE TABLE SAVINGSACC (ACCNO VARCHAR(10) PRIMARY KEY, BALANCE REAL, STATUS VARCHAR(10), INTEREST INTEGER(3));"
+    sql = "CREATE TABLE SAVINGSACC (ACCNO VARCHAR(10) PRIMARY KEY, BALANCE REAL, STATUS VARCHAR(10), INTEREST REAL);"
     db.query(sql).then(response => {
         if (response) {
             console.log(response);
         }
     })
 
-    sql = "CREATE TABLE FDACC (ACCNO VARCHAR(10) PRIMARY KEY, PRINCIPLE REAL, AMOUNT REAL, INTEREST INTEGER(3), STATUS VARCHAR(10), DEPDATE DATE, TERM VARCHAR(15), MATURDATE DATE);"
+    sql = "CREATE TABLE FDACC (ACCNO VARCHAR(10) PRIMARY KEY, PRINCIPLE REAL, AMOUNT REAL, INTEREST REAL, STATUS VARCHAR(10), DEPDATE DATE, TERM VARCHAR(15), MATURDATE DATE);"
     db.query(sql).then(response => {
         if (response) {
             console.log(response);
@@ -68,19 +68,19 @@ router.get('/', function (req, res, next) {
             console.log(response);
         }
     })
-    sql = "CREATE TABLE BILLERS (ID INTEGER, CATEGORY VARCHAR(20), LOCATION VARCHAR(20), BILLERNAME VARCHAR(20));"
+    sql = "CREATE TABLE BILLERS (BILLERID INTEGER PRIMARY KEY, CATEGORY VARCHAR(20), LOCATION VARCHAR(20), BILLERNAME VARCHAR(20));"
     db.query(sql).then(response => {
         if (response) {
             console.log(response);
         }
     })
-    sql = "CREATE TABLE BILLDET( ID INTEGER, BILLDATE DATE, BILLAMOUNT REAL, BILLERNAME VARCHAR(20));"
+    sql = "CREATE TABLE BILLDET( ID INTEGER PRIMARY KEY, EMAIL VARCHAR(30),BILLDATE DATE, BILLAMOUNT REAL, STATUS VARCHAR(20), BILLERID INT);"
     db.query(sql).then(response => {
         if (response) {
             console.log(response);
         }
     })
-    sql = "CREATE TABLE LOAN (ACCNO VARCHAR(10), LOANTYPE VARCHAR(20), APPBY VARCHAR(20), PRINCIPLE INTEGER, OUTSTANDING INTEGER, STATUS VARCHAR(8), INTERSETRATE INTEGER(3));"
+    sql = "CREATE TABLE LOAN (LOANID VARCHAR(10),ACCNO VARCHAR(10), LOANTYPE VARCHAR(20), SANCTBY VARCHAR(20), PRINCIPLE REAL, OUTSTANDING REAL, STATUS VARCHAR(8), INTERESTRATE REAL, TERM INT);"
     db.query(sql).then(response => {
         if (response) {
             console.log(response);
