@@ -6,13 +6,23 @@ const { all } = require('./auth');
 /* GET users listing. */
 const getName = async (item) => {
     try {
-        sql = "SELECT * FROM ACCOUNT WHERE ACCNO = ? AND ACCTYPE='Savings'"
-        const account = await db.query(sql, item.AACNO);
+        console.log(item)
+        var sql;
+        if (item.TTYPE == 'BILL') {
+            sql = "SELECT * FROM BILLERS WHERE BILLERID=?"
+            const biller = await db.query(sql, item.AACNO);
+            return biller[0][0].BILLERNAME;
+        }
+        else {
+            sql = "SELECT * FROM ACCOUNT WHERE ACCNO = ? AND ACCTYPE='Savings'";
+            const account = await db.query(sql, item.AACNO);
 
-        sql = "SELECT * FROM CUSTOMER WHERE ID=? "
-        const cust = await db.query(sql, account[0][0].ID);
-        const name = cust[0][0].FNAME + " " + cust[0][0].LNAME;
-        return name;
+            sql = "SELECT * FROM CUSTOMER WHERE ID=? "
+            const cust = await db.query(sql, account[0][0].ID);
+            const name = cust[0][0].FNAME + " " + cust[0][0].LNAME;
+            return name;
+        }
+
 
     }
     catch (err) {
@@ -30,7 +40,7 @@ const Map = async (transacts) => {
             trlist.push(data)
             console.log(trlist);
         }
-        
+
         return trlist;
     }
     catch (err) {
@@ -54,7 +64,7 @@ router.get('/:acct/', async function (req, res, next) {
     else {
 
 
-        sql = "SELECT * FROM TRANSACTION WHERE ACCNO = ?";
+        sql = "SELECT * FROM TRANSACTION WHERE ACCNO = ? ORDER BY TRANSDATE DESC";
 
         const transactions = await db.query(sql, acct);
         const tlist = await Map(transactions[0]);

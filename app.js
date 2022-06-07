@@ -17,6 +17,12 @@ var savAccountRouter = require('./routes/savAccount');
 var instaPayRouter = require('./routes/instaPay');
 var beneficiaryRouter = require('./routes/beneficiary');
 var addBeneficiaryRouter = require('./routes/addBeneficiary');
+var addLoanRouter = require('./routes/addLoan');
+var billsRouter = require('./routes/bills');
+var payBillRouter = require('./routes/payBill');
+var getBillerRouter = require('./routes/getBillers');
+var addBillerRouter = require('./routes/addBillers');
+var payNewBillRouter = require('./routes/payNewBill');
 
 var app = express();
 app.use(cors());
@@ -37,20 +43,27 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/create-alla-tables', tableRouter);
-app.use('/auth',authRouter);
-app.use('/addAccount',addAccountRouter);
-app.use('/account',accountRouter);
-app.use('/accountList',accountListRouter);
-app.use('/profile',profileRouter);
-app.use('/history',historyRouter);
 app.use('/auth', authRouter);
 app.use('/addAccount', addAccountRouter);
 app.use('/account', accountRouter);
+app.use('/accountList', accountListRouter);
+app.use('/profile', profileRouter);
+app.use('/history', historyRouter);
+app.use('/auth', authRouter);
+app.use('/addAccount', addAccountRouter);
+app.use('/addLoan', addLoanRouter);
+app.use('/account', accountRouter);
 app.use('/savAccount', savAccountRouter);
 app.use('/accountList', accountListRouter);
-app.use('/instapay',instaPayRouter);
-app.use('/beneficiary',beneficiaryRouter);
-app.use('/addBeneficiary',addBeneficiaryRouter)
+app.use('/instapay', instaPayRouter);
+app.use('/beneficiary', beneficiaryRouter);
+app.use('/addBeneficiary', addBeneficiaryRouter)
+app.use('/bills', billsRouter);
+app.use('/payBill', payBillRouter);
+app.use('/billers',getBillerRouter);
+app.use('/addBiller',addBillerRouter);
+app.use('/payNewBill',payNewBillRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
