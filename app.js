@@ -23,6 +23,7 @@ var payBillRouter = require('./routes/payBill');
 var getBillerRouter = require('./routes/getBillers');
 var addBillerRouter = require('./routes/addBillers');
 var payNewBillRouter = require('./routes/payNewBill');
+var addMoneyRouter = require('./routes/addMoney');
 
 var app = express();
 app.use(cors());
@@ -63,6 +64,8 @@ app.use('/payBill', payBillRouter);
 app.use('/billers',getBillerRouter);
 app.use('/addBiller',addBillerRouter);
 app.use('/payNewBill',payNewBillRouter);
+app.use('/addMoney',addMoneyRouter);
+
 
 
 // catch 404 and forward to error handler
