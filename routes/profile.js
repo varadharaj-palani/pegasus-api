@@ -30,9 +30,6 @@ router.get('/', async function (req, res, next) {
             if (acc[0][0].ACCTYPE == "Savings") {
                 sql = "SELECT * FROM SAVINGSACC WHERE ACCNO = ?";
             }
-            else {
-                sql = "SELECT * FROM FDACC WHERE ACCNO = ?"
-            }
             const account = await db.query(sql, acc[0][0].ACCNO);
             if (account[0].length == 0) {
                 return res.status(401).send({
@@ -43,7 +40,7 @@ router.get('/', async function (req, res, next) {
             else {
                 sql = "SELECT * FROM CUSTOMER WHERE ID=?";
                 const cust = await db.query(sql, usr[0][0].ID);
-                const allData = { 'customer': cust[0][0], 'account': acc[0][0] }
+                const allData = { 'customer': cust[0][0], 'savingsacc': acc[0][0] }
                 return res.status(200).send(allData);
             }
         }

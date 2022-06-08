@@ -86,7 +86,7 @@ router.get('/', function (req, res, next) {
             console.log(response);
         }
     })
-    sql = "CREATE TABLE REQUEST (SDATE DATE, SERVICE_TYPE VARCHAR(20), ID INTEGER(10));"
+    sql = "CREATE TABLE REQUEST (NAME VARCHAR(20), SERVICE VARCHAR(20), EMAIL VARCHAR(30) );"
     db.query(sql).then(response => {
         if (response) {
             console.log(response);
