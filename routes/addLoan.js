@@ -31,7 +31,7 @@ router.post('/', async function (req, res, next) {
             sql = "INSERT INTO LOAN VALUES (?)"
             const loanId = randLoanId();
             console.log(data)
-            await db.query(sql,[[loanId,data.accno,data.loanType,data.sanctby,data.principle,data.principle,'Active',data.interestrate,data.term]])
+            await db.query(sql,[[loanId,data.email,data.accno,data.loanType,data.sanctby,data.principle,data.principle,'ACTIVE',data.interestrate,data.term]])
             return res.status(200).send({ message: "Loan Created", flag: "success" });
         }
         catch (err) {

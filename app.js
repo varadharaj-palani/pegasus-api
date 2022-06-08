@@ -25,8 +25,15 @@ var addBillerRouter = require('./routes/addBillers');
 var payNewBillRouter = require('./routes/payNewBill');
 var addMoneyRouter = require('./routes/addMoney');
 var ServiceRouter = require('./routes/Service');
-
-
+var loansRouter = require('./routes/loans');
+var payLoanRouter = require('./routes/payLoan');
+var addEmployeeRouter = require('./routes/addEmployee');
+var ifscRouter = require('./routes/ifsc');
+var managerRouter = require ('./routes/manager');
+var addBranchRouter = require('./routes/addBranch');
+var savingsInterestRouter = require('./routes/savingsInterest');
+var loanInterestRouter = require('./routes/loanInterest');
+var fdInterestRouter = require('./routes/fdInterest');
 var app = express();
 app.use(cors());
 
@@ -68,6 +75,15 @@ app.use('/addBiller',addBillerRouter);
 app.use('/payNewBill',payNewBillRouter);
 app.use('/addMoney',addMoneyRouter);
 app.use('/Service',ServiceRouter);
+app.use('/loans',loansRouter);
+app.use('/payLoan',payLoanRouter);
+app.use('/addEmployee',addEmployeeRouter);
+app.use('/ifsc',ifscRouter);
+app.use('/manager',managerRouter);
+app.use('/addBranch',addBranchRouter);
+app.use('/callSavingsInterest',savingsInterestRouter);
+app.use('/callLoanInterest',loanInterestRouter)
+app.use('/callFdInterest',fdInterestRouter)
 
 
 
