@@ -80,7 +80,7 @@ router.get('/', function (req, res, next) {
             console.log(response);
         }
     })
-    sql = "CREATE TABLE LOAN (LOANID VARCHAR(10),ACCNO VARCHAR(10), LOANTYPE VARCHAR(20), SANCTBY VARCHAR(30), PRINCIPLE REAL, OUTSTANDING REAL, STATUS VARCHAR(8), INTERESTRATE REAL, TERM INT);"
+    sql = "CREATE TABLE LOAN (LOANID VARCHAR(10), EMAIL VARCHAR(30),ACCNO VARCHAR(10), LOANTYPE VARCHAR(20), SANCTBY VARCHAR(30), PRINCIPLE REAL, OUTSTANDING REAL, STATUS VARCHAR(8), INTERESTRATE REAL, TERM INT);"
     db.query(sql).then(response => {
         if (response) {
             console.log(response);
