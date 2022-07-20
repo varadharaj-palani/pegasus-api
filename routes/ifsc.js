@@ -5,10 +5,10 @@ var db = require("../data/database");
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
     const email = req.headers.authorization;
-    var sql = "SELECT ID FROM LOGIN WHERE USERNAME=? AND UTYPE='Customer'";
+    var sql = "SELECT ID FROM LOGIN WHERE USERNAME=? AND UTYPE='GOD'";
 
     const usr = await db.query(sql, email);
-    console.log (usr)
+    console.log(usr)
     if (usr[0].length == 0) {
         return res.status(401).send({
             message: 'User doesn\'t exist',
@@ -16,9 +16,14 @@ router.get('/', async function (req, res, next) {
         })
     }
     else {
-        sql = "SELECT * FROM ACCOUNT WHERE ID=?"
-        const acc = await db.query(sql, usr[0][0].ID);
-        res.status(200).send({'accounts': acc[0]});
+        sql = "SELECT IFSC, CITY FROM BRANCH";
+        const branch = await db.query(sql);
+        const ilist = branch[0].map((item, key) => {
+            return item.IFSC + " - " + item.CITY;
+        })
+        const ifsclist = ['Select'].concat(ilist);
+        console.log(ifsclist);
+        res.status(200).send({ ifsclist });
 
     }
 });

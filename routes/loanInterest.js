@@ -5,7 +5,8 @@ var db = require("../data/database");
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
     const email = req.headers.authorization;
-    var sql = "SELECT ID FROM LOGIN WHERE USERNAME=? AND UTYPE='Customer'";
+    console.log(email);
+    var sql = "SELECT ID FROM LOGIN WHERE USERNAME=? AND UTYPE='Employee'";
 
     const usr = await db.query(sql, email);
     console.log (usr)
@@ -16,9 +17,12 @@ router.get('/', async function (req, res, next) {
         })
     }
     else {
-        sql = "SELECT * FROM ACCOUNT WHERE ID=?"
-        const acc = await db.query(sql, usr[0][0].ID);
-        res.status(200).send({'accounts': acc[0]});
+        sql = "CALL ADD_INTEREST_TO_LOAN ();"
+        await db.query(sql);
+        return res.status(200).send({
+            message: 'Interest Added Successfully',
+            flag: 'success'
+        })
 
     }
 });
